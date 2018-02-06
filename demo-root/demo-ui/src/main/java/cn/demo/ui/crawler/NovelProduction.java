@@ -19,7 +19,7 @@ import yhjp.bean.common.ResultBean;
 @Controller
 @RequestMapping("/novel")
 public class NovelProduction {
-	private static String NovelUrl = "http://www.bixia.org/50_50523";
+	private static String NovelUrl = "https://www.2323wx.com/book/22785";
 
 	@Autowired
 	private NovelService novelService;

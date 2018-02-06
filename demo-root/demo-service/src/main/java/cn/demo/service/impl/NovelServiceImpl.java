@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 import cn.demo.bean.NovelPageInfo;
 import cn.demo.bll.crawler.NovelBll;
 import cn.demo.service.NovelService;
+import yhjp.bll.common.ChineseToNumber;
 
 @Component
 public class NovelServiceImpl implements NovelService {
@@ -49,21 +50,25 @@ public class NovelServiceImpl implements NovelService {
 		for (NovelPageInfo page : novelList) {
 			Matcher titlePatM = titleNum.matcher(page.getTitle());
 			if (titlePatM.find()) {
-				novelOrderMap.put(Integer.valueOf(titlePatM.group(1)), page);
+				novelOrderMap.put(ChineseToNumber.ChineseToNum(titlePatM.group(1)), page);
 			}
 		}
-		StringBuffer novrlString = new StringBuffer();
-		for (int i = 0; i < novelOrderMap.size()-1; i++) {
-			if(novelOrderMap.get(i+1)==null) {
-				continue ;
+		StringBuilder novrlString = new StringBuilder();
+		for (int i = 0; i < novelOrderMap.size() - 1; i++) {
+			if (novelOrderMap.get(i + 1) == null) {
+				continue;
 			}
-			System.out.println("------现在是第----"+i);
-			Document doc = Jsoup.parse(novelOrderMap.get(i+1).getHtml());
+			System.out.println("------现在是第----" + i);
+			Document doc = Jsoup.parse(novelOrderMap.get(i + 1).getHtml());
 			Element content = doc.getElementById("content");
-			novrlString.append(novelOrderMap.get(i+1).getTitle()).append("\r\n");
+			if(content == null) {
+				content = doc.body();
+			}
 			novrlString.append(content.text());
-			bufferWriter.write(novrlString+"\r\n");
-			if(novrlString!=null) {
+			novrlString.append(novelOrderMap.get(i + 1).getTitle()).append("\r\n");
+			
+			bufferWriter.write(novrlString + "\r\n");
+			if (novrlString != null) {
 				novrlString.delete(0, novrlString.length());
 			}
 		}

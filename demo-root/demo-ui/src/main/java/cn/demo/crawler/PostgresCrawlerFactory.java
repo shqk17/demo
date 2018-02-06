@@ -7,7 +7,8 @@ public class PostgresCrawlerFactory  implements CrawlController.WebCrawlerFactor
 	private final String dbUrl;
 	private final String dbUser;
 	private final String dbPw;
-
+	//PostgresWebCrawler
+	
 	public PostgresCrawlerFactory(String dbUrl, String dbUser, String dbPw) {
 	        this.dbUrl = dbUrl;
 	        this.dbUser = dbUser;
