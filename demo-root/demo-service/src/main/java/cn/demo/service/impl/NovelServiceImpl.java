@@ -70,7 +70,8 @@ public class NovelServiceImpl implements NovelService {
 			}
 			//继续解析格式；
 			bufferWriter.write(title.get(i + 1) + "\r\n");
-			novrlString.append(content.text().split("下一章")[1].split("上一章")[0]);
+			novrlString.append(content.text().split("下一章")[1].split("上一章")[0]
+					.replaceAll("  ","\n"));
 
 			novrlString.append(novelOrderMap.get(i + 1).getTitle()).append("\r\n");
 			
