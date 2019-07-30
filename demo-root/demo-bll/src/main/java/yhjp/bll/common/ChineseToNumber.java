@@ -1,10 +1,20 @@
 package yhjp.bll.common;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ChineseToNumber {
+	private static Pattern isNum = Pattern.compile("^-?[1-9]\\d*$");
+
 	public static int ChineseToNum(String str) {
+		Matcher titlePatM = isNum.matcher(str);
+		if (titlePatM.find()) {
+			return Integer.valueOf(str);
+		}
 		String str1 = new String();
 		String str2 = new String();
 		String str3 = new String();
+
 		int k = 0;
 		boolean dealflag = true;
 		for (int i = 0; i < str.length(); i++) {// 先把字符串中的“零”除去

@@ -8,7 +8,10 @@ import org.springframework.stereotype.Component;
 import cn.demo.bean.NovelPageInfo;
 import cn.demo.bll.crawler.NovelBll;
 import cn.demo.dao.crawler.NovelPageInfoMapper;
+import org.springframework.stereotype.Repository;
+
 @Component
+@Repository
 public class NovelBllImpl implements NovelBll{
 
 	@Autowired

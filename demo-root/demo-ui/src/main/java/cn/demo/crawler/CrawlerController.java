@@ -31,9 +31,9 @@ public class CrawlerController {
          * URLs that are fetched and then the crawler starts following links
          * which are found in these pages  种子路径
          */
-        controller.addSeed("http://www.biquge.com.tw/19_19315/");
+        controller.addSeed("https://www.biqubao.com/book/22318/");
         /*controller.addSeed("http://www.23us.com/html/43/43197");
-        controller.addSeed("https://pt.wikipedia.org/wiki/JDBC");
+        controller.addSeed("https://www.biqubao.com/book/22318/");
         controller.addSeed("https://pt.wikipedia.org/wiki/Protocolo");
         controller.addSeed("https://de.wikipedia.org/wiki/Datenbank");*/
 
@@ -43,7 +43,7 @@ public class CrawlerController {
          */
 
         long startTime =System.currentTimeMillis();
-        controller.start(new PostgresCrawlerFactory("jdbc:mysql://127.0.0.1:3306/novel","root",""), numberOfCrawlers);
+        controller.start(new PostgresCrawlerFactory("jdbc:mysql://127.0.0.1:3306/novel","root","aa123567"), numberOfCrawlers);
         long endTime = System.currentTimeMillis();
         System.out.println("用时 " + (endTime - startTime) / 1000 + "秒...");
     }

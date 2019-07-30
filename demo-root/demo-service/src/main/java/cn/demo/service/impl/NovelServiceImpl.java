@@ -31,6 +31,7 @@ import yhjp.bll.common.ChineseToNumber;
 public class NovelServiceImpl implements NovelService {
 	private static final Logger logger = org.slf4j.LoggerFactory.getLogger(NovelServiceImpl.class);
 	private static Pattern titleNum = Pattern.compile("第(.+?)章");
+	private static Pattern contentPa = Pattern.compile("下一章((.)+?)上一章");
 
 	private static Pattern novel = Pattern.compile(">(.+?)<br/");
 	@Autowired
@@ -47,10 +48,13 @@ public class NovelServiceImpl implements NovelService {
 
 		List<NovelPageInfo> novelList = novelBll.getNovelPageListByUrl(url);
 		HashMap<Integer, NovelPageInfo> novelOrderMap = new HashMap<>();
+		HashMap<Integer,String> title = new HashMap<>();
 		for (NovelPageInfo page : novelList) {
 			Matcher titlePatM = titleNum.matcher(page.getTitle());
 			if (titlePatM.find()) {
-				novelOrderMap.put(ChineseToNumber.ChineseToNum(titlePatM.group(1)), page);
+				Integer intTitle =ChineseToNumber.ChineseToNum(titlePatM.group(1));
+				novelOrderMap.put(intTitle, page);
+				title.put(intTitle,page.getTitle());
 			}
 		}
 		StringBuilder novrlString = new StringBuilder();
@@ -64,7 +68,10 @@ public class NovelServiceImpl implements NovelService {
 			if(content == null) {
 				content = doc.body();
 			}
-			novrlString.append(content.text());
+			//继续解析格式；
+			bufferWriter.write(title.get(i + 1) + "\r\n");
+			novrlString.append(content.text().split("下一章")[1].split("上一章")[0]);
+
 			novrlString.append(novelOrderMap.get(i + 1).getTitle()).append("\r\n");
 			
 			bufferWriter.write(novrlString + "\r\n");
