@@ -14,7 +14,7 @@
 		<module>demo-ui</module>
 	</modules>
 	<properties>
-		<postgresql.version>42.1.4</postgresql.version>
+		<postgresql.version>42.4.1</postgresql.version>
 		<crawler4j.version>4.3</crawler4j.version>
 		<c3p0.version>0.9.5.2</c3p0.version>
 	</properties>
